@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "MMT Villa Discovery"
+version = "1.0.0"
+id = "artifacts/mmt-villa"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18119
+
+[services.development]
+run = "pnpm --filter @workspace/mmt-villa run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/mmt-villa", "run", "build" ]
+publicDir = "artifacts/mmt-villa/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18119"
+BASE_PATH = "/"
